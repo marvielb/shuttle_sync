@@ -31,5 +31,22 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
+        $locations = [
+           ['location_name' => 'Manila', 'location_abbreviation' => 'MNL'],
+           ['location_name' => 'Quezon City', 'location_abbreviation' => 'QC'],
+           ['location_name' => 'Makati City', 'location_abbreviation' => 'MKA'],
+           ['location_name' => 'Taguig City', 'location_abbreviation' => 'TAG'],
+           ['location_name' => 'Pasig City', 'location_abbreviation' => 'PSG'],
+           ['location_name' => 'Mandaluyong City', 'location_abbreviation' => 'MND'],
+           ['location_name' => 'San Juan City', 'location_abbreviation' => 'SJN'],
+           ['location_name' => 'Pasay City', 'location_abbreviation' => 'PAS'],
+           ['location_name' => 'Parañaque City', 'location_abbreviation' => 'PQA'],
+           ['location_name' => 'Valenzuela City', 'location_abbreviation' => 'VLN'],
+       ];
+
+        foreach ($locations as $location) {
+            \App\Models\Location::create($location);
+        }
+
     }
 }
