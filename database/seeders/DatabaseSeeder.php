@@ -48,5 +48,6 @@ class DatabaseSeeder extends Seeder
             \App\Models\Location::create($location);
         }
 
+        \App\Models\Shuttle::factory()->count(10)->create();
     }
 }
