@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ShuttleSchedule;
+use App\Models\TimeSlot;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +22,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'john@example.com',
         ]);
 
-        collect([8,9,10,11,12,13,14,15,16,17])->each(function ($number) {
+        $hours = [8,9,10,11,12,13,14,15,16,17];
+        collect($hours)->each(function ($number) {
             \App\Models\TimeSlot::factory()->create([
                 'start_time' => Carbon::createFromTime($number),
                 'end_time' => Carbon::createFromTime($number, 30),
@@ -31,7 +34,7 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
-        $locations = [
+        $locations = collect([
            ['location_name' => 'Manila', 'location_abbreviation' => 'MNL'],
            ['location_name' => 'Quezon City', 'location_abbreviation' => 'QC'],
            ['location_name' => 'Makati City', 'location_abbreviation' => 'MKA'],
@@ -42,12 +45,24 @@ class DatabaseSeeder extends Seeder
            ['location_name' => 'Pasay City', 'location_abbreviation' => 'PAS'],
            ['location_name' => 'Parañaque City', 'location_abbreviation' => 'PQA'],
            ['location_name' => 'Valenzuela City', 'location_abbreviation' => 'VLN'],
-       ];
+       ])->map(function ($location) {
+           return \App\Models\Location::factory()->create($location);
+       });
 
-        foreach ($locations as $location) {
-            \App\Models\Location::create($location);
-        }
+        $shuttles = \App\Models\Shuttle::factory()->count(10)->create();
 
-        \App\Models\Shuttle::factory()->count(10)->create();
+        $shuttles->each(function ($shuttle, $index) use ($hours, $locations) {
+            $timeslots = TimeSlot::all();
+            $timeslots->each(function ($timeslot, $timeslotIndex) use ($index, $locations, $shuttle) {
+                $primaryIndex = ($index + ($timeslotIndex % 2)) % count($locations);
+                $secondaryIndex = (($index) + (($timeslotIndex + 1) % 2)) % count($locations);
+                ShuttleSchedule::factory()->create([
+                    'shuttle_id' => $shuttle['shuttle_id'],
+                    'time_slot_id' => $timeslot['time_slot_id'],
+                    'from_location_id' => $locations[$primaryIndex]['location_id'],
+                    'to_location_id' => $locations[$secondaryIndex]['location_id'],
+                ]);
+            });
+        });
     }
 }

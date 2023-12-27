@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TimeSlot extends Model
+class ShuttleSchedule extends Model
 {
     use HasFactory;
 
-    protected $table = 'time_slots';
-    protected $primaryKey = 'time_slot_id';
+    protected $table = 'shuttle_schedules';
+    protected $primaryKey = 'shuttle_schedule_id';
 }

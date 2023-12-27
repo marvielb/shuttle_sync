@@ -11,7 +11,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('time_slots', function (Blueprint $table) {
-            $table->id('timeslot_id');
+            $table->id('time_slot_id');
             $table->time('start_time');
             $table->time('end_time');
             $table->timestamps();

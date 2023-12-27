@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
     $locations = Location::all();
     $timeSlots = TimeSlot::all()->map(function ($timeSlot) {
         return [
-            'timeslot_id' => $timeSlot['timeslot_id'],
+            'time_slot_id' => $timeSlot['time_slot_id'],
             'start_time' => Carbon::parse($timeSlot['start_time'])->format('h:i A'),
         ];
     });
