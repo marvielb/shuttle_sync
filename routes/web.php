@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Location;
-use App\Models\TimeSlot;
-use Carbon\Carbon;
+use App\Http\Controllers\ShuttleSearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,16 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    $locations = Location::all();
-    $timeSlots = TimeSlot::all()->map(function ($timeSlot) {
-        return [
-            'time_slot_id' => $timeSlot['time_slot_id'],
-            'start_time' => Carbon::parse($timeSlot['start_time'])->format('h:i A'),
-        ];
-    });
-    return view('dashboard', compact('locations', 'timeSlots'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/shuttles/search', [ShuttleSearchController::class, 'index'])->name('shuttles.search');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
