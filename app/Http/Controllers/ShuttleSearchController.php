@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShuttleSearchRequest;
 use App\Models\Location;
 use App\Models\TimeSlot;
 use Carbon\Carbon;
@@ -20,5 +21,11 @@ class ShuttleSearchController extends Controller
             ];
         });
         return view('shuttles.search', compact('locations', 'timeSlots'));
+    }
+
+    public function search(ShuttleSearchRequest $request): View|Factory
+    {
+        $formData = $request->validated();
+        return view('shuttles.result');
     }
 }

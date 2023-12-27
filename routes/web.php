@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/shuttles/search', [ShuttleSearchController::class, 'index'])->name('shuttles.search');
+    Route::post('/shuttles/search', [ShuttleSearchController::class, 'search'])->name('shuttles.search.results');
 });
 
 Route::middleware('auth')->group(function () {
