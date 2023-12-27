@@ -15,9 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        \App\Models\User::factory()->create([
+        $user = \App\Models\User::factory()->create([
             'name' => 'Test User',
             'email' => 'john@example.com',
         ]);
@@ -64,5 +62,12 @@ class DatabaseSeeder extends Seeder
                 ]);
             });
         });
+
+        $schedule = \App\Models\ShuttleSchedule::first();
+
+        \App\Models\Booking::factory()->create([
+            'booking_user_id' => $user,
+            'booking_shuttle_schedule_id' => $schedule
+        ]);
     }
 }
