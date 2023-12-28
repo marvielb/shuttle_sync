@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ShuttleSearchRequest;
 use App\Models\Location;
+use App\Models\ShuttleSchedule;
 use App\Models\TimeSlot;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
@@ -27,7 +28,12 @@ class ShuttleSearchController extends Controller
     public function search(ShuttleSearchRequest $request): View|Factory
     {
         $formData = $request->validated();
+        $schedules = ShuttleSchedule::whereToLocationId($formData['to_location_id'])
+            ->whereFromLocationId($formData['from_location_id'])
+            ->whereTimeSlotId($formData['time_slot_id'])
+            ->with(['shuttle'])
+            ->get();
 
-        return view('shuttles.result');
+        return view('shuttles.result', compact('schedules'));
     }
 }
