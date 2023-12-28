@@ -6,6 +6,6 @@
     </x-slot>
 
     <div class="py-6 flex justify-center">
-       This is supposed to be a dashboard!
+        This is supposed to be a dashboard!
     </div>
 </x-app-layout>

@@ -6,10 +6,10 @@
     </x-slot>
 
     <div class="py-6 flex justify-center">
-           @foreach ($schedules as $schedule)
+        @foreach ($schedules as $schedule)
             <div>
-                {{$schedule['shuttle']['shuttle_plate_number']}}
+                {{ $schedule['shuttle']['shuttle_plate_number'] }}
             </div>
-           @endforeach
+        @endforeach
     </div>
 </x-app-layout>
