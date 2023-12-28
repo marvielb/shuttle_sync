@@ -13,5 +13,6 @@ class Booking extends Model
     use HasFactory;
 
     protected $table = 'bookings';
+
     protected $primaryKey = 'booking_id';
 }

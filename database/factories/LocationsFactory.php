@@ -24,8 +24,9 @@ class LocationsFactory extends Factory
             'location_abbreviation' => $abbreviation,
         ];
     }
+
     /**
-     * @param string $locationName
+     * @param  string  $locationName
      */
     private function generateAbbreviation($locationName): string
     {

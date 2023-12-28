@@ -13,5 +13,6 @@ class TimeSlot extends Model
     use HasFactory;
 
     protected $table = 'time_slots';
+
     protected $primaryKey = 'time_slot_id';
 }

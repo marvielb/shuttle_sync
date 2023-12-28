@@ -13,5 +13,6 @@ class Location extends Model
     use HasFactory;
 
     protected $table = 'locations';
+
     protected $primaryKey = 'location_id';
 }

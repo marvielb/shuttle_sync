@@ -20,12 +20,14 @@ class ShuttleSearchController extends Controller
                 'start_time' => Carbon::parse($timeSlot['start_time'])->format('h:i A'),
             ];
         });
+
         return view('shuttles.search', compact('locations', 'timeSlots'));
     }
 
     public function search(ShuttleSearchRequest $request): View|Factory
     {
         $formData = $request->validated();
+
         return view('shuttles.result');
     }
 }

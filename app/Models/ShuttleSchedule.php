@@ -13,5 +13,6 @@ class ShuttleSchedule extends Model
     use HasFactory;
 
     protected $table = 'shuttle_schedules';
+
     protected $primaryKey = 'shuttle_schedule_id';
 }

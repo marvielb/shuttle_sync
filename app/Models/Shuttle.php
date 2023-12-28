@@ -13,5 +13,6 @@ class Shuttle extends Model
     use HasFactory;
 
     protected $table = 'shuttles';
+
     protected $primaryKey = 'shuttle_id';
 }

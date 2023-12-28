@@ -20,9 +20,9 @@ class ShuttleFactory extends Factory
         return [
             'shuttle_driver_id' => User::factory()->create(),
             'shuttle_model_name' => $this->faker->word(),
-            'shuttle_plate_number' => strtoupper($this->faker->randomLetter . $this->faker->randomLetter . $this->faker->randomLetter)
-                                         . '-' .
-                                        $this->faker->randomDigitNotNull() . $this->faker->randomDigitNotNull() . $this->faker->randomDigitNotNull(),
+            'shuttle_plate_number' => strtoupper($this->faker->randomLetter.$this->faker->randomLetter.$this->faker->randomLetter)
+                                         .'-'.
+                                        $this->faker->randomDigitNotNull().$this->faker->randomDigitNotNull().$this->faker->randomDigitNotNull(),
             'shuttle_capacity' => $this->faker->randomElement([3, 8, 12]),
         ];
     }
