@@ -26,7 +26,7 @@ class ShuttleSearchTest extends TestCase
             ->get('/shuttles/search');
 
         $locations->each(function ($location) use ($response) {
-            $response->assertSeeText($location['location_name']);
+            $response->assertSeeText($location['name']);
         });
 
         $timeslots->each(function ($timeslot) use ($response) {
@@ -45,8 +45,8 @@ class ShuttleSearchTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->post('/shuttles/search', [
-                'from_location_id' => $locations[0]['location_id'],
-                'to_location_id' => $locations[0]['location_id'],
+                'from_location_id' => $locations[0]['id'],
+                'to_location_id' => $locations[0]['id'],
                 'time_slot_id' => $timeslots[0]['id'],
             ]);
 

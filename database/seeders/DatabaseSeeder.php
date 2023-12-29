@@ -33,16 +33,16 @@ class DatabaseSeeder extends Seeder
         });
 
         $locations = collect([
-            ['location_name' => 'Manila', 'location_abbreviation' => 'MNL'],
-            ['location_name' => 'Quezon City', 'location_abbreviation' => 'QC'],
-            ['location_name' => 'Makati City', 'location_abbreviation' => 'MKA'],
-            ['location_name' => 'Taguig City', 'location_abbreviation' => 'TAG'],
-            ['location_name' => 'Pasig City', 'location_abbreviation' => 'PSG'],
-            ['location_name' => 'Mandaluyong City', 'location_abbreviation' => 'MND'],
-            ['location_name' => 'San Juan City', 'location_abbreviation' => 'SJN'],
-            ['location_name' => 'Pasay City', 'location_abbreviation' => 'PAS'],
-            ['location_name' => 'Parañaque City', 'location_abbreviation' => 'PQA'],
-            ['location_name' => 'Valenzuela City', 'location_abbreviation' => 'VLN'],
+            ['name' => 'Manila', 'abbreviation' => 'MNL'],
+            ['name' => 'Quezon City', 'abbreviation' => 'QC'],
+            ['name' => 'Makati City', 'abbreviation' => 'MKA'],
+            ['name' => 'Taguig City', 'abbreviation' => 'TAG'],
+            ['name' => 'Pasig City', 'abbreviation' => 'PSG'],
+            ['name' => 'Mandaluyong City', 'abbreviation' => 'MND'],
+            ['name' => 'San Juan City', 'abbreviation' => 'SJN'],
+            ['name' => 'Pasay City', 'abbreviation' => 'PAS'],
+            ['name' => 'Parañaque City', 'abbreviation' => 'PQA'],
+            ['name' => 'Valenzuela City', 'abbreviation' => 'VLN'],
         ])->map(function ($location) {
             return \App\Models\Location::factory()->create($location);
         });
@@ -57,8 +57,8 @@ class DatabaseSeeder extends Seeder
                 ShuttleSchedule::factory()->create([
                     'shuttle_id' => $shuttle['id'],
                     'time_slot_id' => $timeslot['id'],
-                    'from_location_id' => $locations[$primaryIndex]['location_id'],
-                    'to_location_id' => $locations[$secondaryIndex]['location_id'],
+                    'from_location_id' => $locations[$primaryIndex]['id'],
+                    'to_location_id' => $locations[$secondaryIndex]['id'],
                 ]);
             });
         });

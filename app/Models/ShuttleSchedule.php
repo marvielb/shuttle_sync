@@ -24,7 +24,7 @@ class ShuttleSchedule extends Model
 
     public function timeSlot(): BelongsTo
     {
-        return $this->belongsTo(TimeSlot::class, 'id');
+        return $this->belongsTo(TimeSlot::class, 'time_slot_id');
     }
 
     public function fromLocation(): BelongsTo

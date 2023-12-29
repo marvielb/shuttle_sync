@@ -12,9 +12,9 @@ return new class() extends Migration
     public function up(): void
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->id('location_id');
-            $table->string('location_name');
-            $table->char('location_abbreviation')->unique();
+            $table->id('id');
+            $table->string('name');
+            $table->char('abbreviation')->unique();
             $table->timestamps();
         });
     }

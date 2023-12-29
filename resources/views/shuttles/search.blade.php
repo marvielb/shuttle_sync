@@ -17,7 +17,7 @@
                         </div>
                         <select class="select select-bordered" name="from_location_id">
                             @foreach ($locations as $location)
-                                <option value="{{ $location['location_id'] }}">{{ $location['location_name'] }}</option>
+                                <option value="{{ $location['id'] }}">{{ $location['name'] }}</option>
                             @endforeach
                         </select>
                         @error('from_location_id')
@@ -30,7 +30,7 @@
                         </div>
                         <select class="select select-bordered" name="to_location_id">
                             @foreach ($locations as $location)
-                                <option value="{{ $location['location_id'] }}">{{ $location['location_name'] }}</option>
+                                <option value="{{ $location['id'] }}">{{ $location['name'] }}</option>
                             @endforeach
                         </select>
                         @error('to_location_id')

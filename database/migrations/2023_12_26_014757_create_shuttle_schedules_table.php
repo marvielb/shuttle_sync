@@ -15,8 +15,8 @@ return new class() extends Migration
             $table->id('shuttle_schedule_id');
             $table->foreignId('shuttle_id')->constrained('shuttles', 'id');
             $table->foreignId('time_slot_id')->constrained('time_slots', 'id');
-            $table->foreignId('from_location_id')->constrained('locations', 'location_id');
-            $table->foreignId('to_location_id')->constrained('locations', 'location_id');
+            $table->foreignId('from_location_id')->constrained('locations', 'id');
+            $table->foreignId('to_location_id')->constrained('locations', 'id');
             $table->date('shuttle_schedule_date');
             $table->timestamps();
         });
