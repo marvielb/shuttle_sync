@@ -44,7 +44,8 @@
                         </div>
                         <select class="select select-bordered" name="time_slot_id">
                             @foreach ($timeSlots as $time_slot)
-                                <option value="{{ $time_slot['time_slot_id'] }}">{{ $time_slot['start_time'] }}</option>
+                                <option value="{{ $time_slot['time_slot_id'] }}">
+                                    {{ $time_slot['formatted_start_time'] }}</option>
                             @endforeach
                         </select>
                         @error('time_slot_id')

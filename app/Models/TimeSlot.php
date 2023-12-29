@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,4 +16,9 @@ class TimeSlot extends Model
     protected $table = 'time_slots';
 
     protected $primaryKey = 'time_slot_id';
+
+    public function getFormattedStartTimeAttribute(): string
+    {
+        return Carbon::parse($this->attributes['start_time'])->format('h:i A');
+    }
 }

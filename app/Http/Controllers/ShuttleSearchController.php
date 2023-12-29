@@ -6,8 +6,6 @@ use App\Http\Requests\ShuttleSearchRequest;
 use App\Models\Location;
 use App\Models\ShuttleSchedule;
 use App\Models\TimeSlot;
-use Carbon\Carbon;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 
@@ -16,12 +14,7 @@ class ShuttleSearchController extends Controller
     public function index(): View|Factory
     {
         $locations = Location::all();
-        $timeSlots = TimeSlot::all()->map(function ($timeSlot) {
-            return [
-                'time_slot_id' => $timeSlot['time_slot_id'],
-                'start_time' => Carbon::parse($timeSlot['start_time'])->format('h:i A'),
-            ];
-        });
+        $timeSlots = TimeSlot::all();
 
         return view('shuttles.search', compact('locations', 'timeSlots'));
     }
@@ -37,6 +30,7 @@ class ShuttleSearchController extends Controller
             ->get([
                 'shuttles.shuttle_model_name',
                 'shuttles.shuttle_plate_number',
+                'shuttle_schedule_id',
                 'shuttles.image_url as shuttle_image_url',
                 'users.name AS driver_name',
                 DB::raw('(SELECT (shuttles.shuttle_capacity -

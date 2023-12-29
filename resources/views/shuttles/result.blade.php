@@ -8,17 +8,21 @@
     <div class="py-6 flex justify-center">
         @foreach ($schedules as $schedule)
             <div class="card card-side bg-base-100 shadow-xl max-w-sm">
-                <figure class="w-full max-w-40 pl-5"><img class="object-cover" src="{{ $schedule['shuttle_image_url'] }}"
+                <figure class="w-full max-w-40 bg-neutral"><img class="object-cover"
+                        src="{{ $schedule['shuttle_image_url'] }}"
                         alt="{{ "{$schedule['shuttle_model_name']} Avatar" }}" /></figure>
                 <div class="card-body">
                     <h2 class="card-title">{{ strtoupper($schedule['shuttle_plate_number']) }}</h2>
                     <p>
-                        <span>{{ $schedule['shuttle_model_name'] }}</span><br>
-                        <span>{{ $schedule['driver_name'] }}</span>
-                        <span>Available: {{ $schedule['available_slots'] }}</span>
+                        <span class="whitespace-nowrap">{{ $schedule['available_slots'] }} Slots Available</span>
+                        <span class="whitespace-nowrap">{{ $schedule['shuttle_model_name'] }}</span><br>
+                        <span class="whitespace-nowrap">{{ $schedule['driver_name'] }}</span>
                     </p>
                     <div class="card-actions pt-2">
-                        <button class=" w-full btn btn-primary">Book</button>
+                        <form class="w-full"
+                            action="{{ route('booking.confirmation', ['shuttleScheduleId' => $schedule['shuttle_schedule_id']]) }}">
+                            <button type="submit" class=" w-full btn btn-primary">Book</button>
+                        </form>
                     </div>
 
                 </div>

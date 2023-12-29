@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShuttleSearchRequest extends FormRequest
+class ShowBookingDetailsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,7 @@ class ShuttleSearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'from_location_id' => 'required|numeric',
-            'to_location_id' => 'required|numeric|different:from_location_id',
-            'time_slot_id' => 'required|numeric',
+            'shuttle_schedule_id' => 'required|numeric',
         ];
     }
 }

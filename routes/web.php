@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingConfirmationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShuttleSearchController;
@@ -24,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/shuttles/search', [ShuttleSearchController::class, 'index'])->name('shuttles.search');
     Route::post('/shuttles/search', [ShuttleSearchController::class, 'search'])->name('shuttles.search.results');
+    Route::get('/booking/{shuttleScheduleId}/confirmation', [BookingConfirmationController::class, 'create'])->name('booking.confirmation');
 });
 
 Route::middleware('auth')->group(function () {
