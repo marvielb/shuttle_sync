@@ -7,8 +7,20 @@
 
     <div class="py-6 flex justify-center">
         @foreach ($schedules as $schedule)
-            <div>
-                {{ $schedule['shuttle']['shuttle_plate_number'] }}
+            <div class="card card-side bg-base-100 shadow-xl">
+                <figure><img src="https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
+                        alt="{{ "{$schedule['shuttle_model_name']} Avatar" }}" /></figure>
+                <div class="card-body">
+                    <h2 class="card-title">{{ strtoupper($schedule['shuttle_plate_number']) }}</h2>
+                    <p>
+                        <span>{{ $schedule['shuttle_model_name'] }}</span><br>
+                        <span>{{ $schedule['driver_name'] }}</span>
+                        <br>
+                        <br>
+                        <span>Available: {{ $schedule['available_slots'] }}</span>
+                    </p>
+
+                </div>
             </div>
         @endforeach
     </div>

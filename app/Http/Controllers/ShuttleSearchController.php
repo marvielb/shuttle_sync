@@ -9,6 +9,7 @@ use App\Models\TimeSlot;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 
 class ShuttleSearchController extends Controller
 {
@@ -31,8 +32,16 @@ class ShuttleSearchController extends Controller
         $schedules = ShuttleSchedule::whereToLocationId($formData['to_location_id'])
             ->whereFromLocationId($formData['from_location_id'])
             ->whereTimeSlotId($formData['time_slot_id'])
-            ->with(['shuttle'])
-            ->get();
+            ->join('shuttles', 'shuttle_schedules.shuttle_id', '=', 'shuttles.shuttle_id')
+            ->join('users', 'shuttles.shuttle_driver_id', '=', 'users.id')
+            ->get([
+                'shuttles.shuttle_model_name',
+                'shuttles.shuttle_plate_number',
+                'users.name AS driver_name',
+                DB::raw('(SELECT (shuttles.shuttle_capacity -
+                                    (SELECT COUNT(*) FROM
+                                    bookings WHERE booking_shuttle_schedule_id = shuttle_schedules.shuttle_schedule_id))
+                            AS available_slots)')]);
 
         return view('shuttles.result', compact('schedules'));
     }
