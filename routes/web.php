@@ -26,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/shuttles/search', [ShuttleSearchController::class, 'index'])->name('shuttles.search');
     Route::post('/shuttles/search', [ShuttleSearchController::class, 'search'])->name('shuttles.search.results');
     Route::get('/booking/{shuttleScheduleId}/confirmation', [BookingConfirmationController::class, 'create'])->name('booking.confirmation');
+    Route::post('/booking/{shuttleScheduleId}/confirmation', [BookingConfirmationController::class, 'store'])->name('booking.confirmation.result');
 });
 
 Route::middleware('auth')->group(function () {

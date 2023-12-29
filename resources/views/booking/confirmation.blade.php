@@ -24,7 +24,11 @@
                         <span class="whitespace-nowrap">{{ $shuttle['shuttle_model_name'] }}</span><br>
                     </div>
                     <div class="card-actions pt-5">
-                        <button type="submit" class=" w-full btn btn-primary">Book</button>
+                        <form class="w-full" method="post"
+                            action="{{ route('booking.confirmation.result', ['shuttleScheduleId' => $schedule['shuttle_schedule_id']]) }}">
+                            @csrf
+                            <button type="submit" class=" w-full btn btn-primary">Book</button>
+                        </form>
                     </div>
                 </div>
 

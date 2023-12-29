@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ShuttleSearchController extends Controller
 {
-    public function index(): View|Factory
+    public function index(): View
     {
         $locations = Location::all();
         $timeSlots = TimeSlot::all();
@@ -19,7 +19,7 @@ class ShuttleSearchController extends Controller
         return view('shuttles.search', compact('locations', 'timeSlots'));
     }
 
-    public function search(ShuttleSearchRequest $request): View|Factory
+    public function search(ShuttleSearchRequest $request): View
     {
         $formData = $request->validated();
         $schedules = ShuttleSchedule::whereToLocationId($formData['to_location_id'])
