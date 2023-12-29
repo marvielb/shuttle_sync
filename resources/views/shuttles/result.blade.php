@@ -8,7 +8,7 @@
     <div class="py-6 flex justify-center">
         @foreach ($schedules as $schedule)
             <div class="card card-side bg-base-100 shadow-xl max-w-sm">
-                <figure class="w-full max-w-40 pl-5"><img src="{{ $schedule['shuttle_image_url'] }}"
+                <figure class="w-full max-w-40 pl-5"><img class="object-cover" src="{{ $schedule['shuttle_image_url'] }}"
                         alt="{{ "{$schedule['shuttle_model_name']} Avatar" }}" /></figure>
                 <div class="card-body">
                     <h2 class="card-title">{{ strtoupper($schedule['shuttle_plate_number']) }}</h2>
