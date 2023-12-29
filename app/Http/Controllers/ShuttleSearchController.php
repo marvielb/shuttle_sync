@@ -37,6 +37,7 @@ class ShuttleSearchController extends Controller
             ->get([
                 'shuttles.shuttle_model_name',
                 'shuttles.shuttle_plate_number',
+                'shuttles.image_url as shuttle_image_url',
                 'users.name AS driver_name',
                 DB::raw('(SELECT (shuttles.shuttle_capacity -
                                     (SELECT COUNT(*) FROM

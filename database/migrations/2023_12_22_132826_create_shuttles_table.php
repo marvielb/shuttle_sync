@@ -17,6 +17,7 @@ return new class() extends Migration
             $table->string('shuttle_model_name');
             $table->string('shuttle_plate_number');
             $table->integer('shuttle_capacity');
+            $table->string('image_url');
             $table->timestamps();
         });
     }
