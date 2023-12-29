@@ -22,9 +22,9 @@ class ShuttleSearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'from_location_id' => 'required|exists:locations,location_id',
-            'to_location_id' => 'required|different:from_location_id|exists:locations,location_id',
-            'time_slot_id' => 'required|exists:time_slots,time_slot_id',
+            'from_location_id' => 'required|numeric',
+            'to_location_id' => 'required|numeric',
+            'time_slot_id' => 'required|numeric',
         ];
     }
 }
