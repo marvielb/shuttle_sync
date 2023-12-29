@@ -15,7 +15,7 @@ class TimeSlot extends Model
 
     protected $table = 'time_slots';
 
-    protected $primaryKey = 'time_slot_id';
+    protected $primaryKey = 'id';
 
     public function getFormattedStartTimeAttribute(): string
     {

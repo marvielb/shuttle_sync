@@ -47,7 +47,7 @@ class ShuttleSearchTest extends TestCase
             ->post('/shuttles/search', [
                 'from_location_id' => $locations[0]['location_id'],
                 'to_location_id' => $locations[0]['location_id'],
-                'time_slot_id' => $timeslots[0]['time_slot_id'],
+                'time_slot_id' => $timeslots[0]['id'],
             ]);
 
         $response->assertSessionHasErrors();
