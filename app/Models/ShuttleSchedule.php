@@ -15,7 +15,7 @@ class ShuttleSchedule extends Model
 
     protected $table = 'shuttle_schedules';
 
-    protected $primaryKey = 'shuttle_schedule_id';
+    protected $primaryKey = 'id';
 
     public function shuttle(): BelongsTo
     {

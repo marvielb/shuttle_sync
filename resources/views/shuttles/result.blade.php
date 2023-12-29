@@ -20,7 +20,7 @@
                     </p>
                     <div class="card-actions pt-2">
                         <form class="w-full"
-                            action="{{ route('booking.confirmation', ['shuttleScheduleId' => $schedule['shuttle_schedule_id']]) }}">
+                            action="{{ route('booking.confirmation', ['shuttleScheduleId' => $schedule['id']]) }}">
                             <button type="submit" class=" w-full btn btn-primary">Book</button>
                         </form>
                     </div>

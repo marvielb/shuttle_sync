@@ -14,7 +14,7 @@ return new class() extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id('booking_id');
             $table->foreignId('booking_user_id')->constrained('users');
-            $table->foreignId('booking_shuttle_schedule_id')->constrained('shuttle_schedules', 'shuttle_schedule_id');
+            $table->foreignId('booking_shuttle_schedule_id')->constrained('shuttle_schedules', 'id');
             $table->timestamps();
         });
     }

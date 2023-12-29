@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-actions pt-5">
                         <form class="w-full" method="post"
-                            action="{{ route('booking.confirmation.result', ['shuttleScheduleId' => $schedule['shuttle_schedule_id']]) }}">
+                            action="{{ route('booking.confirmation.result', ['shuttleScheduleId' => $schedule['id']]) }}">
                             @csrf
                             <button type="submit" class=" w-full btn btn-primary">Book</button>
                         </form>

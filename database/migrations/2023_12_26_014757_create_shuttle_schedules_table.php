@@ -12,12 +12,12 @@ return new class() extends Migration
     public function up(): void
     {
         Schema::create('shuttle_schedules', function (Blueprint $table) {
-            $table->id('shuttle_schedule_id');
+            $table->id('id');
             $table->foreignId('shuttle_id')->constrained('shuttles', 'id');
             $table->foreignId('time_slot_id')->constrained('time_slots', 'id');
             $table->foreignId('from_location_id')->constrained('locations', 'id');
             $table->foreignId('to_location_id')->constrained('locations', 'id');
-            $table->date('shuttle_schedule_date');
+            $table->date('schedule_date');
             $table->timestamps();
         });
     }

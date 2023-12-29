@@ -12,7 +12,7 @@ class BookingConfirmationController extends Controller
 {
     public function create(int $shuttleScheduleId): View
     {
-        $schedule = ShuttleSchedule::whereShuttleScheduleId($shuttleScheduleId)
+        $schedule = ShuttleSchedule::whereId($shuttleScheduleId)
             ->with(['shuttle.driver', 'timeSlot'])
             ->first();
 
