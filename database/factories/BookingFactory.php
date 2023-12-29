@@ -19,8 +19,8 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         return [
-            'booking_user_id' => User::factory(),
-            'booking_shuttle_schedule_id' => ShuttleSchedule::factory(),
+            'user_id' => User::factory(),
+            'shuttle_schedule_id' => ShuttleSchedule::factory(),
         ];
     }
 }

@@ -14,7 +14,7 @@ class Booking extends Model
 
     protected $table = 'bookings';
 
-    protected $primaryKey = 'booking_id';
+    protected $primaryKey = 'id';
 
-    protected $fillable = ['booking_user_id', 'booking_shuttle_schedule_id'];
+    protected $fillable = ['user_id', 'shuttle_schedule_id'];
 }

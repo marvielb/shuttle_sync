@@ -24,8 +24,8 @@ class BookingConfirmationController extends Controller
         $userId = $request->user()->id;
 
         $booking = Booking::create([
-            'booking_user_id' => $userId,
-            'booking_shuttle_schedule_id' => $shuttleScheduleId,
+            'user_id' => $userId,
+            'shuttle_schedule_id' => $shuttleScheduleId,
         ]);
 
         if (! $booking) {

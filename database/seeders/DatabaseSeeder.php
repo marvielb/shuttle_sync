@@ -66,8 +66,8 @@ class DatabaseSeeder extends Seeder
         $schedule = \App\Models\ShuttleSchedule::first();
 
         \App\Models\Booking::factory()->create([
-            'booking_user_id' => $user,
-            'booking_shuttle_schedule_id' => $schedule,
+            'user_id' => $user,
+            'shuttle_schedule_id' => $schedule,
         ]);
     }
 }

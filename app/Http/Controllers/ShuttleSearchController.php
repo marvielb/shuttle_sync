@@ -35,7 +35,7 @@ class ShuttleSearchController extends Controller
                 'users.name AS driver_name',
                 DB::raw('(SELECT (shuttles.capacity -
                                     (SELECT COUNT(*) FROM
-                                    bookings WHERE booking_shuttle_schedule_id = shuttle_schedules.id))
+                                    bookings WHERE shuttle_schedule_id = shuttle_schedules.id))
                             AS available_slots)')]);
 
         return view('shuttles.result', compact('schedules'));
