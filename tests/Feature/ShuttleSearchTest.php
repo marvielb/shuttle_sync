@@ -67,6 +67,6 @@ class ShuttleSearchTest extends TestCase
             ]);
 
         $response->assertSeeText($schedule->shuttle->driver->name);
-        $response->assertSeeText($schedule->shuttle->shuttle_model_name);
+        $response->assertSeeText($schedule->shuttle->model_name);
     }
 }

@@ -9,13 +9,13 @@
         @foreach ($schedules as $schedule)
             <div class="card card-side bg-base-100 shadow-xl max-w-sm">
                 <figure class="w-full max-w-40 bg-neutral"><img class="object-cover"
-                        src="{{ $schedule['shuttle_image_url'] }}"
-                        alt="{{ "{$schedule['shuttle_model_name']} Avatar" }}" /></figure>
+                        src="{{ $schedule['shuttle_image_url'] }}" alt="{{ "{$schedule['model_name']} Avatar" }}" />
+                </figure>
                 <div class="card-body">
-                    <h2 class="card-title">{{ strtoupper($schedule['shuttle_plate_number']) }}</h2>
+                    <h2 class="card-title">{{ strtoupper($schedule['plate_number']) }}</h2>
                     <p>
                         <span class="whitespace-nowrap">{{ $schedule['available_slots'] }} Slots Available</span>
-                        <span class="whitespace-nowrap">{{ $schedule['shuttle_model_name'] }}</span><br>
+                        <span class="whitespace-nowrap">{{ $schedule['model_name'] }}</span><br>
                         <span class="whitespace-nowrap">{{ $schedule['driver_name'] }}</span>
                     </p>
                     <div class="card-actions pt-2">

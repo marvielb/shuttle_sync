@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
                 $primaryIndex = ($index + ($timeslotIndex % 2)) % count($locations);
                 $secondaryIndex = (($index) + (($timeslotIndex + 1) % 2)) % count($locations);
                 ShuttleSchedule::factory()->create([
-                    'shuttle_id' => $shuttle['shuttle_id'],
+                    'shuttle_id' => $shuttle['id'],
                     'time_slot_id' => $timeslot['time_slot_id'],
                     'from_location_id' => $locations[$primaryIndex]['location_id'],
                     'to_location_id' => $locations[$secondaryIndex]['location_id'],

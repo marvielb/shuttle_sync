@@ -15,10 +15,10 @@ class Shuttle extends Model
 
     protected $table = 'shuttles';
 
-    protected $primaryKey = 'shuttle_id';
+    protected $primaryKey = 'id';
 
     public function driver(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'shuttle_driver_id');
+        return $this->belongsTo(User::class, 'driver_id');
     }
 }

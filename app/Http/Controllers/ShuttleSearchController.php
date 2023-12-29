@@ -25,15 +25,15 @@ class ShuttleSearchController extends Controller
         $schedules = ShuttleSchedule::whereToLocationId($formData['to_location_id'])
             ->whereFromLocationId($formData['from_location_id'])
             ->whereTimeSlotId($formData['time_slot_id'])
-            ->join('shuttles', 'shuttle_schedules.shuttle_id', '=', 'shuttles.shuttle_id')
-            ->join('users', 'shuttles.shuttle_driver_id', '=', 'users.id')
+            ->join('shuttles', 'shuttle_schedules.shuttle_id', '=', 'shuttles.id')
+            ->join('users', 'shuttles.driver_id', '=', 'users.id')
             ->get([
-                'shuttles.shuttle_model_name',
-                'shuttles.shuttle_plate_number',
+                'shuttles.model_name',
+                'shuttles.plate_number',
                 'shuttle_schedule_id',
                 'shuttles.image_url as shuttle_image_url',
                 'users.name AS driver_name',
-                DB::raw('(SELECT (shuttles.shuttle_capacity -
+                DB::raw('(SELECT (shuttles.capacity -
                                     (SELECT COUNT(*) FROM
                                     bookings WHERE booking_shuttle_schedule_id = shuttle_schedules.shuttle_schedule_id))
                             AS available_slots)')]);

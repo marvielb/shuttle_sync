@@ -12,11 +12,11 @@ return new class() extends Migration
     public function up(): void
     {
         Schema::create('shuttles', function (Blueprint $table) {
-            $table->id('shuttle_id');
-            $table->foreignId('shuttle_driver_id')->constrained('users');
-            $table->string('shuttle_model_name');
-            $table->string('shuttle_plate_number');
-            $table->integer('shuttle_capacity');
+            $table->id('id');
+            $table->foreignId('driver_id')->constrained('users');
+            $table->string('model_name');
+            $table->string('plate_number');
+            $table->integer('capacity');
             $table->string('image_url');
             $table->timestamps();
         });

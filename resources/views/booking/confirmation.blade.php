@@ -17,11 +17,11 @@
 
                 <div class="card-body w-full justify-center">
                     <figure class=" pl-5"><img class="object-cover" src="{{ $shuttle['image_url'] }}"
-                            alt="{{ "{$shuttle['shuttle_model_name']} Avatar" }}" /></figure>
+                            alt="{{ "{$shuttle['model_name']} Avatar" }}" /></figure>
                     <div class="pt-2">
                         <span
                             class="whitespace-nowrap text-xl font-bold">{{ $timeSlot['formatted_start_time'] }}</span><br>
-                        <span class="whitespace-nowrap">{{ $shuttle['shuttle_model_name'] }}</span><br>
+                        <span class="whitespace-nowrap">{{ $shuttle['model_name'] }}</span><br>
                     </div>
                     <div class="card-actions pt-5">
                         <form class="w-full" method="post"
