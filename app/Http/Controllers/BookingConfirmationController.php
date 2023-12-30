@@ -16,6 +16,10 @@ class BookingConfirmationController extends Controller
             ->with(['shuttle.driver', 'timeSlot'])
             ->first();
 
+        if (! $schedule) {
+            abort(404);
+        }
+
         return view('booking.confirmation', compact('schedule'));
     }
 
@@ -23,13 +27,21 @@ class BookingConfirmationController extends Controller
     {
         $userId = $request->user()->id;
 
+        $existingBookingExists = Booking::whereUserId($userId)
+            ->whereShuttleScheduleId($shuttleScheduleId)
+            ->exists();
+
+        if ($existingBookingExists) {
+            abort(409);
+        }
+
         $booking = Booking::create([
             'user_id' => $userId,
             'shuttle_schedule_id' => $shuttleScheduleId,
         ]);
 
         if (! $booking) {
-            abort(404);
+            abort(500);
         }
 
         return view('booking.result');
