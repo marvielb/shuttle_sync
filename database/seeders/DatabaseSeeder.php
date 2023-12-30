@@ -3,18 +3,24 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Booking;
 use App\Models\ShuttleSchedule;
 use App\Models\TimeSlot;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Arr;
 
 class DatabaseSeeder extends Seeder
 {
+    use WithFaker;
+
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
+        $this->setUpFaker();
         $user = \App\Models\User::factory()->create([
             'name' => 'Test User',
             'email' => 'john@example.com',
@@ -38,27 +44,30 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Makati City', 'abbreviation' => 'MKA'],
             ['name' => 'Taguig City', 'abbreviation' => 'TAG'],
             ['name' => 'Pasig City', 'abbreviation' => 'PSG'],
-            ['name' => 'Mandaluyong City', 'abbreviation' => 'MND'],
-            ['name' => 'San Juan City', 'abbreviation' => 'SJN'],
-            ['name' => 'Pasay City', 'abbreviation' => 'PAS'],
-            ['name' => 'Parañaque City', 'abbreviation' => 'PQA'],
-            ['name' => 'Valenzuela City', 'abbreviation' => 'VLN'],
         ])->map(function ($location) {
             return \App\Models\Location::factory()->create($location);
         });
 
-        $shuttles = \App\Models\Shuttle::factory()->count(10)->create();
+        $shuttles = \App\Models\Shuttle::factory()->count(50)->create();
 
-        $shuttles->each(function ($shuttle, $index) use ($locations) {
+        $locationIds = $locations->map(fn ($location) => $location['id']);
+        $possibleRoutes = collect(Arr::crossJoin($locationIds, $locationIds))
+            ->filter(fn ($route) => $route[0] != $route[1])
+            ->values();
+
+        $shuttles->each(function ($shuttle, $index) use ($possibleRoutes) {
             $timeslots = TimeSlot::all();
-            $timeslots->each(function ($timeslot, $timeslotIndex) use ($index, $locations, $shuttle) {
-                $primaryIndex = ($index + ($timeslotIndex % 2)) % count($locations);
-                $secondaryIndex = (($index) + (($timeslotIndex + 1) % 2)) % count($locations);
-                ShuttleSchedule::factory()->create([
+            $timeslots->each(function ($timeslot, $timeslotIndex) use ($index, $shuttle, $possibleRoutes) {
+                $routeIndex = $index % count($possibleRoutes);
+                $schedule = ShuttleSchedule::factory()->create([
                     'shuttle_id' => $shuttle['id'],
                     'time_slot_id' => $timeslot['id'],
-                    'from_location_id' => $locations[$primaryIndex]['id'],
-                    'to_location_id' => $locations[$secondaryIndex]['id'],
+                    'from_location_id' => $possibleRoutes[$routeIndex][0],
+                    'to_location_id' => $possibleRoutes[$routeIndex][1],
+                ]);
+                $randomBookings = $this->faker->randomElement(range(0, $shuttle['capacity']));
+                Booking::factory()->count($randomBookings)->create([
+                    'shuttle_schedule_id' => $schedule['id'],
                 ]);
             });
         });
