@@ -26,6 +26,11 @@ class BookingConfirmationController extends Controller
     public function store(int $shuttleScheduleId, Request $request): View|Factory
     {
         $userId = $request->user()->id;
+        $schedule = ShuttleSchedule::find($shuttleScheduleId);
+
+        if (! $schedule) {
+            abort(404, 'Schedule does not exists');
+        }
 
         $existingBookingExists = Booking::whereUserId($userId)
             ->whereShuttleScheduleId($shuttleScheduleId)

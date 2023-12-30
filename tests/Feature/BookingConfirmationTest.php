@@ -68,4 +68,17 @@ class BookingConfirmationTest extends TestCase
 
         $response->assertStatus(409);
     }
+
+    public function test_must_return_404_if_booking_schedule_does_not_exist(): void
+    {
+        $booking = Booking::factory()->createOne();
+        $user = $booking->user;
+        $schedule = $booking->shuttle_schedule;
+        $nonExistentId = $schedule->id + 1;
+
+        $response = $this->actingAs($user)
+            ->post("/booking/{$nonExistentId}/confirmation");
+
+        $response->assertStatus(404);
+    }
 }
