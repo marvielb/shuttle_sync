@@ -25,7 +25,7 @@ class ShuttleScheduleFactory extends Factory
             'time_slot_id' => TimeSlot::factory(),
             'from_location_id' => Location::factory(),
             'to_location_id' => Location::factory(),
-            'schedule_date' => Carbon::now(),
+            'date' => Carbon::now(),
         ];
     }
 }

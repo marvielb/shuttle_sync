@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingConfirmationController;
+use App\Http\Controllers\BookingHistoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShuttleSearchController;
@@ -27,6 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/shuttles/search', [ShuttleSearchController::class, 'search'])->name('shuttles.search.results');
     Route::get('/booking/{shuttleScheduleId}/confirmation', [BookingConfirmationController::class, 'create'])->name('booking.confirmation');
     Route::post('/booking/{shuttleScheduleId}/confirmation', [BookingConfirmationController::class, 'store'])->name('booking.confirmation.result');
+    Route::get('/booking-history', [BookingHistoryController::class, 'index'])->name('booking.history');
 });
 
 Route::middleware('auth')->group(function () {

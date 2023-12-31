@@ -20,6 +20,9 @@
                     <x-nav-link :href="route('shuttles.search')" :active="request()->routeIs('shuttles.search')">
                         {{ __('Shuttle Search') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('booking.history')" :active="request()->routeIs('booking.history')">
+                        {{ __('Booking History') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -85,6 +88,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('shuttles.search')" :active="request()->routeIs('shuttles.search')">
                 {{ __('Shuttle Search') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('booking.history')" :active="request()->routeIs('booking.history')">
+                {{ __('Booking History') }}
             </x-responsive-nav-link>
         </div>
 

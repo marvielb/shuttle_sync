@@ -24,7 +24,7 @@ class Booking extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function shuttle_schedule(): BelongsTo
+    public function shuttleSchedule(): BelongsTo
     {
         return $this->belongsTo(ShuttleSchedule::class, 'shuttle_schedule_id');
     }
