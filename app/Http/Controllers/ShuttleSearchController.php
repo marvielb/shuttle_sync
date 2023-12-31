@@ -6,6 +6,7 @@ use App\Http\Requests\ShuttleSearchRequest;
 use App\Models\Location;
 use App\Models\ShuttleSchedule;
 use App\Models\TimeSlot;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 
@@ -25,6 +26,7 @@ class ShuttleSearchController extends Controller
         $schedules = ShuttleSchedule::whereToLocationId($formData['to_location_id'])
             ->whereFromLocationId($formData['from_location_id'])
             ->whereTimeSlotId($formData['time_slot_id'])
+            ->whereDate('date', Carbon::now())
             ->join('shuttles', 'shuttle_schedules.shuttle_id', '=', 'shuttles.id')
             ->join('users', 'shuttles.driver_id', '=', 'users.id')
             ->get([

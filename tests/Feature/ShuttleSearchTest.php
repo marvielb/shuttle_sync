@@ -6,6 +6,7 @@ use App\Models\Location;
 use App\Models\ShuttleSchedule;
 use App\Models\TimeSlot;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -68,5 +69,36 @@ class ShuttleSearchTest extends TestCase
 
         $response->assertSeeText($schedule->shuttle->driver->name);
         $response->assertSeeText($schedule->shuttle->model_name);
+    }
+
+    public function test_must_show_only_for_today_schedule(): void
+    {
+        $user = User::factory()->create();
+        $schedule = ShuttleSchedule::factory()->create(
+            ['date' => Carbon::now()]
+        );
+        $scheduleYesterday = ShuttleSchedule::factory()->create([
+            'date' => Carbon::now()->subDay(1),
+            'from_location_id' => $schedule->from_location_id,
+            'to_location_id' => $schedule->to_location_id,
+            'time_slot_id' => $schedule->time_slot_id,
+        ]);
+        $scheduleTomorrow = ShuttleSchedule::factory()->create([
+            'date' => Carbon::now()->addDay(1),
+            'from_location_id' => $schedule->from_location_id,
+            'to_location_id' => $schedule->to_location_id,
+            'time_slot_id' => $schedule->time_slot_id,
+        ]);
+
+        $response = $this->actingAs($user)
+            ->post('/shuttles/search', [
+                'from_location_id' => $schedule['from_location_id'],
+                'to_location_id' => $schedule['to_location_id'],
+                'time_slot_id' => $schedule['time_slot_id'],
+            ]);
+
+        $response->assertSeeText($schedule->shuttle->plate_number);
+        $response->assertDontSeeText($scheduleTomorrow->shuttle->plate_number);
+        $response->assertDontSeeText($scheduleYesterday->shuttle->plate_number);
     }
 }
