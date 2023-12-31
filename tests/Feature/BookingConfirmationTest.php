@@ -61,7 +61,7 @@ class BookingConfirmationTest extends TestCase
     {
         $booking = Booking::factory()->createOne();
         $user = $booking->user;
-        $schedule = $booking->shuttle_schedule;
+        $schedule = $booking->shuttleSchedule;
 
         $response = $this->actingAs($user)
             ->post("/booking/{$schedule->id}/confirmation");
@@ -73,7 +73,7 @@ class BookingConfirmationTest extends TestCase
     {
         $booking = Booking::factory()->createOne();
         $user = $booking->user;
-        $schedule = $booking->shuttle_schedule;
+        $schedule = $booking->shuttleSchedule;
         $nonExistentId = $schedule->id + 1;
 
         $response = $this->actingAs($user)
