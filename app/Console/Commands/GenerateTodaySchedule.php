@@ -48,20 +48,21 @@ class GenerateTodaySchedule extends Command
             ->filter(fn ($route) => $route[0] != $route[1])
             ->values();
         $users = User::all();
-        $shuttles->each(function ($shuttle, $index) use ($possibleRoutes, $users) {
-            $timeslots = TimeSlot::all();
-            $timeslots->each(function ($timeslot, $timeslotIndex) use ($index, $shuttle, $possibleRoutes, $users) {
+        $timeslots = TimeSlot::all();
+        $shuttles->each(function ($shuttle, $index) use ($possibleRoutes, $timeslots) {
+            $timeslots->each(function ($timeslot, $timeslotIndex) use ($index, $shuttle, $possibleRoutes) {
                 $routeIndex = $index % count($possibleRoutes);
+                $directionIndex = $timeslotIndex % 2;
+                $directionIndex2 = ($timeslotIndex + 1) % 2;
                 $schedule = ShuttleSchedule::factory()->create([
                     'shuttle_id' => $shuttle['id'],
                     'time_slot_id' => $timeslot['id'],
-                    'from_location_id' => $possibleRoutes[$routeIndex][0],
-                    'to_location_id' => $possibleRoutes[$routeIndex][1],
+                    'from_location_id' => $possibleRoutes[$routeIndex][$directionIndex],
+                    'to_location_id' => $possibleRoutes[$routeIndex][$directionIndex2],
                 ]);
                 $randomBookings = $this->faker->randomElement(range(0, $shuttle['capacity']));
                 Booking::factory()->count($randomBookings)->create([
                     'shuttle_schedule_id' => $schedule['id'],
-                    'user_id' => $this->faker->randomElement($users),
                 ]);
             });
         });
