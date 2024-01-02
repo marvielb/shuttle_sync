@@ -49,8 +49,8 @@ class GenerateTodaySchedule extends Command
             ->values();
         $users = User::all();
         $timeslots = TimeSlot::all();
-        $shuttles->each(function ($shuttle, $index) use ($possibleRoutes, $timeslots) {
-            $timeslots->each(function ($timeslot, $timeslotIndex) use ($index, $shuttle, $possibleRoutes) {
+        $shuttles->each(function ($shuttle, $index) use ($possibleRoutes, $timeslots, $users) {
+            $timeslots->each(function ($timeslot, $timeslotIndex) use ($index, $shuttle, $possibleRoutes, $users) {
                 $routeIndex = $index % count($possibleRoutes);
                 $directionIndex = $timeslotIndex % 2;
                 $directionIndex2 = ($timeslotIndex + 1) % 2;
@@ -61,8 +61,10 @@ class GenerateTodaySchedule extends Command
                     'to_location_id' => $possibleRoutes[$routeIndex][$directionIndex2],
                 ]);
                 $randomBookings = $this->faker->randomElement(range(0, $shuttle['capacity']));
+                $randomUser = $this->faker->randomElement($users);
                 Booking::factory()->count($randomBookings)->create([
                     'shuttle_schedule_id' => $schedule['id'],
+                    'user_id' => $randomUser['id'],
                 ]);
             });
         });
