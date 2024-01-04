@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Arr;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -49,6 +51,14 @@ class DatabaseSeeder extends Seeder
         });
 
         $shuttles = \App\Models\Shuttle::factory()->count(50)->create();
+        $driverRole = Role::create(['name' => 'driver']);
+        $driverPermission = Permission::create(['name' => 'manage shuttle schedule']);
+        $driverRole->givePermissionTo($driverPermission);
+
+        $shuttles->each(function ($shuttle) use ($driverRole) {
+            $driver = $shuttle->driver;
+            $driver->assignRole($driverRole);
+        });
 
         $locationIds = $locations->map(fn ($location) => $location['id']);
         $possibleRoutes = collect(Arr::crossJoin($locationIds, $locationIds))
