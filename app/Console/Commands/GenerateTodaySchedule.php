@@ -60,12 +60,14 @@ class GenerateTodaySchedule extends Command
                     'from_location_id' => $possibleRoutes[$routeIndex][$directionIndex],
                     'to_location_id' => $possibleRoutes[$routeIndex][$directionIndex2],
                 ]);
+                $this->faker->seed();
                 $randomBookings = $this->faker->randomElement(range(0, $shuttle['capacity']));
-                $randomUser = $this->faker->randomElement($users);
-                Booking::factory()->count($randomBookings)->create([
-                    'shuttle_schedule_id' => $schedule['id'],
-                    'user_id' => $randomUser['id'],
-                ]);
+                $shuffled = $users->shuffle()->take($randomBookings)->each(function (User $user) use ($schedule) {
+                    Booking::factory()->create([
+                        'shuttle_schedule_id' => $schedule['id'],
+                        'user_id' => $user->id,
+                    ]);
+                });
             });
         });
     }
