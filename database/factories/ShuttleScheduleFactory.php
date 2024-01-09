@@ -26,6 +26,7 @@ class ShuttleScheduleFactory extends Factory
             'from_location_id' => Location::factory(),
             'to_location_id' => Location::factory(),
             'date' => Carbon::now(),
+            'status' => 'pending',
         ];
     }
 }

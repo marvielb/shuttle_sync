@@ -17,6 +17,7 @@ return new class() extends Migration
             $table->foreignId('time_slot_id')->constrained('time_slots', 'id');
             $table->foreignId('from_location_id')->constrained('locations', 'id');
             $table->foreignId('to_location_id')->constrained('locations', 'id');
+            $table->enum('status', ['pending', 'arrived', 'start', 'end'])->default('pending');
             $table->date('date');
             $table->timestamps();
         });

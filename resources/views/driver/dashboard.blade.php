@@ -14,9 +14,14 @@
                         <p>{{ $schedule->fromLocation->abbreviation }} - {{ $schedule->toLocation->abbreviation }}</p>
                         <p>{{ $schedule->bookings_count }} passengers</p>
                     </div>
-                    <div class="card-actions justify-end w-full pt-5">
-                        <button class="btn btn-primary w-full">Arrive</button>
-                    </div>
+                    @if ($schedule->status === 'pending')
+                        <form action="{{ route('shuttles.arrive', [$schedule->id]) }}" method="post">
+                            @csrf
+                            <div class="card-actions justify-end w-full pt-5">
+                                <button type="submit" class="btn btn-primary w-full">Arrive</button>
+                            </div>
+                        </form>
+                    @endif
                 </div>
             </div>
         @endforeach

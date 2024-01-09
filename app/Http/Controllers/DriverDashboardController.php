@@ -23,6 +23,10 @@ class DriverDashboardController extends Controller
                 'schedules.toLocation'])
             ->first();
 
-        return view('driver.dashboard', ['schedules' => $driverShuttle->schedules]);
+        $schedules = $driverShuttle->schedules->sortBy(function ($i) {
+            return $i->timeSlot->start_time;
+        });
+
+        return view('driver.dashboard', compact('schedules'));
     }
 }
